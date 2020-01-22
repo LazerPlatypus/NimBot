@@ -7,6 +7,6 @@ module.exports = {
     usage: "Supply no arguments.",
     cooldown: false,
     execute(message, args) {
-
+		
     },
 };
