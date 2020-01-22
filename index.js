@@ -29,3 +29,4 @@ client.on('message', async message => { // can't remember why this has to be asy
    // ask adam if you have questions (maybe i can figure out what my old comments meant)
 });
 
+client.login(token.token);
