@@ -88,3 +88,4 @@ client.on('message', async message => { // can't remember why this has to be asy
     }
 });
 
+client.login(token.token);
