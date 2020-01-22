@@ -23,10 +23,10 @@ client.once('ready', () => {
     console.log('Ready');
 })
 
-// command handling (yes, that's spelled right)
-client.on('message', async message => { // can't remember why this has to be async. but it causes issues if its not.
+// command handling (Yes, that's spelled right)
+client.on('message', async message => { // I don't remember why this has to be async., but it causes issues if it's not.
     // Place command parsing here.
-    // Ask Adam if you have questions. Maybe he can interpret is hold comments.
+    // Ask Adam if you have questions. Maybe he can interpret his hold comments.
     
     // Exits the method if the message doesn't start with the prefix or isn't addressed to the bot.
     if (!message.content.startsWith(prefix) || message.author.bot) return;
