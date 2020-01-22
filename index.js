@@ -1,8 +1,8 @@
 // load in dependencies
 const fs = require('fs'); // load filesystem
 const Discord = require('discord.js'); // load discord
-const config = require('./config.json');
-const prefix = config["prefix"]; 
+
+const {prefix} = require('./config.json');
 const token = require('./token.json');
 
 // prep program
@@ -40,7 +40,7 @@ client.on('message', async message => { // can't remember why this has to be asy
     // Checks whether the command or alias exists in our collection of commands.
     const command = client.commands.get(commandName) 
         || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
-    
+
     // If the command or alias doesn't exist, exit.
     if (!command) return;
 
