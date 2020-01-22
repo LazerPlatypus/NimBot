@@ -44,6 +44,8 @@ client.on('message', async message => { // I don't remember why this has to be a
     // If the command or alias doesn't exist, exit.
     if (!command) return;
 
+    console.log("found a command");
+
     // Checks whether the command was supplied with arguments.
     if (command.args && !args.length) {
 

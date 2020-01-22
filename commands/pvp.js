@@ -1,7 +1,7 @@
 module.exports = {
-    name: "pvpStart",
+    name: "pvpstart",
     description: "Start pvp game with the player who starts it as player1.",
-    aliases: '',
+    aliases: 'pvp',
     guildOnly: false,
     args: false,
     usage: null,
