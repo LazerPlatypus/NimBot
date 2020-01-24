@@ -1,7 +1,7 @@
 module.exports = {
     name: 'send-text',
     description: 'testing a description',
-    author: '',
+    author: 'sear',
     title: '',
     text: '',
 
