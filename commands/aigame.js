@@ -6,6 +6,7 @@ module.exports = {
     cooldown: false,
     execute(message, args) {
         const Discord = require('discord.js');
+        const st = require('..\\helper_methods\\GameState.js');
         var row = args[0];
         var amount = args[1];
         //here we would do something that ould make a new game state but remove the 'amount of sticks from the selected row.
@@ -13,7 +14,6 @@ module.exports = {
         //after we make a new gamestate we just need the AI (computer) to remove some sticks and make a new game state
         //we can store game states in an array list in memory
         //FINALLY, we will display the game state to the screen in the discord text chat with a ping(or not) and then the player can take their turn again
-
     }
 };
 
