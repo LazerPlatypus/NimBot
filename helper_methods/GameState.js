@@ -3,6 +3,35 @@
 // hard - 2, 3, 8, 9
 
 class GameState  {
+    constructor(player1, player2, difficulty) {
+        this.player1 = player1;
+        if (player2 != null) {
+            this.player2 = player2;
+            isPvp = true;
+        }
+        this.whosTurn = player1;
+        this.difficulty = difficulty;
+        switch(difficulty) {
+            case 1: 
+                this.pile1pipes = 3;
+                this.pile2pipes = 3;
+                break;
+            case 2: 
+                this.pile1pipes = 2;
+                this.pile2pipes = 5;
+                this.pile3pipes = 7;
+                break;
+            case 3:
+                this.pile1pipes = 2;
+                this.pile2pipes = 3;
+                this.pile3pipes = 8;
+                this.pile4pipes = 9;
+                break;
+            default: 
+                this.pile1pipes = 3;
+                this.pile2pipes = 3;
+        }
+    }
     isPvp = false; // true or false
     player1 = null; // player 1 username
     player2 = null; // player 2 username or null if computer
