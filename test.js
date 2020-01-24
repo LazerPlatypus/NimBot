@@ -27,14 +27,14 @@ client.on('message', async message => {
     //define prefix
     //make sure user is authorzied to use the command
     //have user input prefix by !prefix {userselectedmessage}
-    
+
     // exits the method if the message doesn't start with the prefix 
     // i.e.: the message isn't addressed to the bot
     // prefix undefined when the prefix changing code is below this line, undefined when it is above
     if (!message.content.startsWith(prefix) || message.author.bot) return;
 
 
-    
+
     // breaks the message into a command, followed by arguments
     const args = message.content.slice(prefix.length).split(/ +/);
 
@@ -42,8 +42,8 @@ client.on('message', async message => {
     const commandName = args.shift().toLowerCase();
 
     // exits the method if the command or its aliases doesn't exist in our collection of commands
-    const command = client.commands.get(commandName) 
-    || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+    const command = client.commands.get(commandName) ||
+        client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
     if (!command) return;
 
@@ -72,7 +72,7 @@ client.on('message', async message => {
         const cooldownAmount = (command.cooldowntime || 3) * 1000;
         if (timestamps.has(message.author.id)) {
             const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
-    
+
             if (now < expirationTime) {
                 const timeLeft = (expirationTime - now) / 1000;
                 message.reply(`please wait ${timeLeft.toFixed(1)} more second${timeLeft>1?'s':''} before reusing the ${command.name} command.`);
@@ -94,7 +94,7 @@ client.on('message', async message => {
         message.reply('there was an error trying to execute your command')
     }
 
-    
+
 
 });
 
