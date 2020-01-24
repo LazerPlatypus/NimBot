@@ -9,7 +9,7 @@ const token = require('./token.json');
 const client = new Discord.Client(); // make the client
 client.commands = new Discord.Collection(); // make a command collection
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js')); // grab the commands
-const cooldown = new Discord.Collection(); // keeps track of cooldowns
+const cooldowns = new Discord.Collection(); // keeps track of cooldowns
 
 
 // populate collection with filenames

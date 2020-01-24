@@ -11,7 +11,7 @@ module.exports = {
         const fs = require("fs");
         const Discord = require("discord.js");
         const { prefix } = require("../config.json");
-        const st = require("..\\helperMethods\\send-text.js");
+        const st = require("..\\helper_methods\\send-text.js");
 		
 		// get the commands loaded in a collection
         commands = new Discord.Collection(); // makes a collection for our commands to go in
@@ -27,7 +27,7 @@ module.exports = {
         for (i = 0; i < commandFiles.length; i++) {
             let command = require(`../commands/${commandFiles[i]}`);
             st.addText(`_\n**${command.name}**\nDescription: ${command.description}
-            Other names: ${command.aliases.length>0?command.aliases.join(", "):"none"}
+            Other names: ${(command.aliases && command.aliases.length>0 && Array.isArray(command.aliases))?command.aliases.join(", "):"none"}
             usage: ${command.usage==undefined?"none specified":command.usage}
             Only usable in text-server: ${command.guildOnly}
             Uses arguments: ${command.args}
