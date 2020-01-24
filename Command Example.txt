@@ -9,5 +9,5 @@ module.exports = {
     cooldowntime: <int, required if cooldown is true>,
     execute(message, args) {
 
-    },
+    }
 };
