@@ -4,7 +4,7 @@ module.exports = {
     aliases: ["begin"],
     guildOnly: false,
     args: false,
-    usage: "Supply no arguments.",
+    usage: "arguments are 'pve' or mention a player",
     cooldown: false,
     execute(message, args) {
 
