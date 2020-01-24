@@ -6,7 +6,7 @@ var gameData = new Array;
 // 'private' methods
 loadData = () => {
     const data = fs.readFileSync(fileLocation);
-    gameData = JSON.parse(data);
+    gameData = JSON.parse(data).games;
 }
 
 saveData = () => {
