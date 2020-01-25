@@ -1,5 +1,5 @@
 module.exports = {
-    name: "Help",
+    name: "help",
     description: "Receive a D.M. with instructions on the game of Nim.",
     aliases: ["info", "?"],
     guildOnly: false,
