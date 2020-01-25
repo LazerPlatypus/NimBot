@@ -1,4 +1,6 @@
+const fs = require('fs');
 const GameController = require('../helper_methods/GameController.js');
+const games = require('../data/games.json');
 module.exports = {
     name: "start",
     description: "Start the game of NIM.",
@@ -21,9 +23,20 @@ module.exports = {
 
         if(diffIsValid) {
             let player1 = message.author;
-            if (!message.mentions.user) {
+            let isInGame = false;
+            for(let game of games) {
+                // console.log(games);
+                if(player1.id == game.player1.id || player1.id == game.player2.id) {
+                    isInGame = true;
+                    break;
+                }
+            }
+            if(isInGame) {
+                message.reply("you're already in a game. You must end it if you want to begin a new one.")
+            }
+            else if(!message.mentions.user) {
                 GameController.createGame(player1, null, difficulty);
-            } else if (message.mentions.user.size > 1) {
+            } else if(message.mentions.user.size > 1) {
                 message.reply("you may only play against one other person or the A.I.");
             } else {
                 console.log(message.mentions.user);

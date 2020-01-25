@@ -8,6 +8,6 @@ module.exports = {
     cooldown: false,
     cooldowntime: 0,
     execute(message, args) {
-
+        
     }
 };
