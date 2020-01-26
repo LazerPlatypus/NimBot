@@ -1,5 +1,5 @@
 module.exports = {
-    name: "End",
+    name: "end",
     description: "End the current game.",
     aliases: ["quit"],
     guildOnly: false,

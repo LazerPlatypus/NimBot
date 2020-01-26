@@ -6,10 +6,23 @@ var gameData = new Array;
 // 'private' methods
 loadData = () => {
     const data = fs.readFileSync(fileLocation);
-    gameData = JSON.parse(data);
+    gameData = JSON.parse(data).games;
 }
 
 saveData = () => {
+    for(let player of ["player1", "player2"]) {
+        if(gameData[0][player]) {
+            let circularVarPath = gameData[0][player].lastMessage;
+            if(circularVarPath) {
+                if(circularVarPath.channel.messages) circularVarPath.channel.messages = null;
+                if(circularVarPath.author) circularVarPath.author = null;
+                if(circularVarPath.member) circularVarPath.member = null;
+                if(circularVarPath.mentions._client) circularVarPath.mentions._client = null;
+                if(circularVarPath.mentions._guild) circularVarPath.mentions._client = null;
+            }
+        }
+    }
+    // console.log(gameData[0].player1.lastMessage);
     const json = JSON.stringify(gameData);
     fs.writeFileSync(fileLocation, json, 'utf8');
 }

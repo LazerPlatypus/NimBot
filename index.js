@@ -9,7 +9,7 @@ const token = require('./token.json');
 const client = new Discord.Client(); // make the client
 client.commands = new Discord.Collection(); // make a command collection
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js')); // grab the commands
-const cooldown = new Discord.Collection(); // keeps track of cooldowns
+const cooldowns = new Discord.Collection(); // keeps track of cooldowns
 
 
 // populate collection with filenames
@@ -59,25 +59,25 @@ client.on('message', async message => { // I don't remember why this has to be a
     }
 
     // Checks whether the command has a cooldown.
-    if (command.cooldown && !cooldowns.has(command.name)) {
-        const now = Date.now();
-        cooldowns.set(command.name, new Discord.Collection());
-        const timestamps = cooldowns.get(command.name);
-        const cooldownAmount = (command.cooldowntime || 3) * 1000;
-        if (timestamps.has(message.author.id)) {
-            const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+    // if (command.cooldown && !cooldowns.has(command.name)) {
+    //     const now = Date.now();
+    //     cooldowns.set(command.name, new Discord.Collection());
+    //     const timestamps = cooldowns.get(command.name);
+    //     const cooldownAmount = (command.cooldowntime || 3) * 1000;
+    //     if (timestamps.has(message.author.id)) {
+    //         const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
             
-            // If the cooldown has not ended, inform the user how much longer he must wait.
-            if (now < expirationTime) {
-                const timeLeft = (expirationTime - now) / 1000;
-                message.reply(`Please wait ${timeLeft.toFixed(1)} more second${timeLeft>1?'s':''} before reusing the ${command.name} command.`);
-                return;
-            }
-        }
-        timestamps.set(message.author.id, now);
-        setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+    //         // If the cooldown has not ended, inform the user how much longer he must wait.
+    //         if (now < expirationTime) {
+    //             const timeLeft = (expirationTime - now) / 1000;
+    //             message.reply(`Please wait ${timeLeft.toFixed(1)} more second${timeLeft>1?'s':''} before reusing the ${command.name} command.`);
+    //             return;
+    //         }
+    //     }
+    //     timestamps.set(message.author.id, now);
+    //     setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
-    }
+    // }
 
 
 
