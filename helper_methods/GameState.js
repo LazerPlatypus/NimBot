@@ -5,10 +5,7 @@
 class GameState  {
     constructor(player1, player2, difficulty) {
         this.player1 = player1;
-        if (player2 != null) {
-            this.player2 = player2;
-            isPvp = true;
-        }
+        this.player2 = player2;
         this.whosTurn = player1;
         this.difficulty = difficulty;
         switch(difficulty) {
@@ -32,7 +29,6 @@ class GameState  {
                 this.pile2pipes = 3;
         }
     }
-    isPvp = false; // true or false
     player1 = null; // player 1 username
     player2 = null; // player 2 username or null if computer
     whosTurn = null; // 1 for player 1, 2 for player 2 or computer
@@ -42,7 +38,7 @@ class GameState  {
     pile3pipes = null; // number of pipes in pile 3, or null if easy
     pile4pipes = null; // number of pipes in pile 4, or null if easy or medium
     gameOver = false; // true or false
-
+    gameId = Math.random();
 }
 module.exports = {
   gameState: GameState
