@@ -97,6 +97,18 @@ module.exports = {
         }
         return message;
     },
+
+    // deleteGame(player1, player2) {
+    //     for(let i = 0; i < gameData.length; i++) {
+    //         let game = gameData[i];
+    //         if((player1.id == game.player1.id || player1.id == game.player2.id)
+    //             && (!player2 || player2.id == game.player2.id || player2.id == game.player1.id)
+    //         ) {
+    //             gameData.splice(i, 1);
+                
+    //             break;
+    //         }
+    //     }
     takePile(player, pile, pipes) {
         let message = "";
         console.log("inside takePile");
