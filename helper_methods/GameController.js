@@ -100,37 +100,43 @@ module.exports = {
         let message = undefined;
         let game = findGameByPlayer(player);
         if (game) {
-            switch (pile) {
-                case 1:
-                    if (game.pile1pipes >= pipes) {
-                        game.pile1pipes -= pipes;
-                    } else {
-                        return "You can't take that many pipes from that pile.";
-                    }
-                    break;
-                case 2:
-                    if (game.pile2pipes >= pipes) {
-                        game.pile2pipes -= pipes;
-                    } else {
-                        return "You can't take that many pipes from that pile.";
-                    }
-                    break;
-                case 3:
-                    if (game.pile3pipes != null && game.pile3pipes >= pipes) {
-                        game.pile3pipes -= pipes;
-                    } else {
-                        return "You can't take that many pipes from that pile.";
-                    }
-                    break;
-                case 4: 
-                    if (game.pile4pipes != null && game.pile4pipes >= pipes) {
-                        game.pile4pipes -= pipes;
-                    } else {
-                        return "You can't take that many pipes from that pile.";
-                    }
-                    break;
-                default:
-                    return `${player} that isn't a valid pile to take from`;
+            if (game.whosTurn == player) {
+                switch (pile) {
+                    case 1:
+                        if (game.pile1pipes >= pipes) {
+                            game.pile1pipes -= pipes;
+                        } else {
+                            return "You can't take that many pipes from that pile.";
+                        }
+                        break;
+                    case 2:
+                        if (game.pile2pipes >= pipes) {
+                            game.pile2pipes -= pipes;
+                        } else {
+                            return "You can't take that many pipes from that pile.";
+                        }
+                        break;
+                    case 3:
+                        if (game.pile3pipes != null && game.pile3pipes >= pipes) {
+                            game.pile3pipes -= pipes;
+                        } else {
+                            return "You can't take that many pipes from that pile.";
+                        }
+                        break;
+                    case 4: 
+                        if (game.pile4pipes != null && game.pile4pipes >= pipes) {
+                            game.pile4pipes -= pipes;
+                        } else {
+                            return "You can't take that many pipes from that pile.";
+                        }
+                        break;
+                    default:
+                        return `${player} that isn't a valid pile to take from`;
+                }
+                //swap whos turn it is
+                game.whosTurn = game.whosTurn==game.player1?game.player2:game.player1;
+            } else {
+                return `${player} it is not your turn!`;
             }
         } else {
             return `${player} you do not have a game in progress.`;
