@@ -23,8 +23,8 @@ module.exports = {
 
         // validate users
         let player1 = message.author.username;
-        let player2 = message.mentions.user?message.mentions.user.get(1):config.botUsername;
-
+        // this one line of code gave me pancreatic cancer
+        let player2 = message.mentions.users.size>0?message.mentions.users.array()[0].username:config.botUsername;
         // create the game
         if (validDifficulty && player1 && player2) {
             error = GameController.createGame(player1, player2, difficulty);

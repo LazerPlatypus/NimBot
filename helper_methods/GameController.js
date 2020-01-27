@@ -60,7 +60,6 @@ checkForWin = (game) => {
                     + game.pile2pipes
                     + game.pile3pipes
                     + game.pile4pipes;
-    console.log(sumOfPipes);
     if (sumOfPipes == 1) {
         winner = game.whosTurn==game.player1?game.player2:game.player1;
     } else if (sumOfPipes == 0) {
@@ -76,6 +75,7 @@ module.exports = {
 
 
     createGame(player1, player2, difficulty) {
+        console.log(player2);
         let message = undefined;
         loadData();
         let allowGame = true;
@@ -84,7 +84,6 @@ module.exports = {
             allowGame = false;
         }
         if (player2 != config.botUsername && findGameByPlayer(player2)) {
-            console.log("player2 match");
             message += `${player2} already has an active game. have them finish or cancel the game to make a new one`;
             allowGame = false
         }
@@ -106,7 +105,6 @@ module.exports = {
                     case 1:
                         if (game.pile1pipes >= pipes) {
                             game.pile1pipes -= pipes;
-                            console.log(game.pile1pipes);
                         } else {
                             return "You can't take that many pipes from that pile.";
                         }
@@ -144,8 +142,6 @@ module.exports = {
             return `${player} you do not have a game in progress.`;
         }
 
-        console.log(game);
-
         let winner = checkForWin(game);
         if (winner) {
             message = `${winner} wins!`;
@@ -155,11 +151,13 @@ module.exports = {
             if(game.player2 == config.botUsername) {
                 game = ai.takeTurn(game);
                 winner = checkForWin(game);
+                console.log(game);
                 if (winner) {
                     message = `${winner} wins!`;
                     this.endGame(player);
+                } else {
+                    updateData(game);
                 }
-                updateData(game);
             }
         }
         return message;
