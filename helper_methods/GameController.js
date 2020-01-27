@@ -1,4 +1,5 @@
 const fs = require('fs');
+const config = require('../config.json');
 const GameState = require('./GameState.js');
 const fileLocation = './data/games.json';
 var gameData = new Array;
@@ -7,89 +8,84 @@ var gameData = new Array;
 loadData = () => {
     const data = fs.readFileSync(fileLocation);
     gameData = JSON.parse(data);
-    console.log("loaded game data");
 }
 
 saveData = () => {
-    // for(let player of ["player1", "player2"]) {
-    //     if(gameData[0][player]) {
-    //         let circularVarPath = gameData[0][player].lastMessage;
-    //         if(circularVarPath) {
-    //             if(circularVarPath.channel.messages) circularVarPath.channel.messages = null;
-    //             if(circularVarPath.author) circularVarPath.author = null;
-    //             if(circularVarPath.member) circularVarPath.member = null;
-    //             if(circularVarPath.mentions._client) circularVarPath.mentions._client = null;
-    //             if(circularVarPath.mentions._guild) circularVarPath.mentions._client = null;
-    //         }
-    //     }
-    // }
-    // console.log(gameData[0].player1.lastMessage);
     const json = JSON.stringify(gameData);
     fs.writeFileSync(fileLocation, json, 'utf8');
 }
 
-// for a win, the sum of all the pipes have to be zero
-// the player whos turn it currently is, wins
-// (we check for win at the end of a turn, before shifting players)
-checkForWin = (gameState) => {
-    console.log("checking for winner");
-    let winner = 0;
-    let sumOfPipes = gameState.pile1pipes + gameState.pile2pipes + gameState.pile3pipes!=null?gameState.pile3pipes:0 + gameState.pile4pipes!=null?gameState.pile4pipes:0;
-    if (sumOfPipes == 1) {
-        winner = gameState.whosTurn;
+updateData = (game) => {
+    loadData();
+    for (let i = 0; i < gameData.length; i++ ) {
+        if (gameData[i].gameId == game.gameId) {
+            gameData[i] = game;
+        }
     }
-    if (sumOfPipes == 0) {
-        winner = gameState.whosTurn==player1?player2:player1;
-    }
-    console.log(winner);
-    return winner;
+    saveData();
 }
 
 findGameByPlayer = (player) => {
-    console.log("inside findGameByPlayer");
     loadData();
-    let playerGame = 0;
+    let playerGame = null;
     gameData.forEach((game) => {
         if (game.player1 == player || game.player2 == player) {
-            console.log("found the player");
-            console.log(game);
             playerGame = game;
         }
     })
     return playerGame;
 }
 
-saveGame = (game) => {
-    console.log("in saveGame");
+removeGameByPlayer = (player) => {
+    let foundGame = false;
     loadData();
-    console.log(game);
-    console.log(gameData);
-    for (let i = 0; i < gameData.length; i++ ) {
-        if (gameData[i].gameId == game.gameId) {
-            console.log("found the game")
-            gameData[i] = game;
+    for (let i = 0; i < gameData.length; i++) {
+        if (gameData[i].player1 == player || gameData[i].player2 == player) {
+            foundGame = true;
+            gameData.splice(i, 1);
+            break;
         }
     }
-    console.log(gameData);
     saveData();
+    return foundGame;
 }
+
+// for a win, the sum of all the pipes have to be zero
+// the player whos turn it currently is, wins
+// (we check for win at the end of a turn, before shifting players)
+checkForWin = (game) => {
+    let winner = null;
+    let sumOfPipes = game.pile1pipes 
+                    + game.pile2pipes
+                    + game.pile3pipes
+                    + game.pile4pipes;
+    if (sumOfPipes == 1) {
+        winner = game.whosTurn;
+    } else if (sumOfPipes == 0) {
+        winner = game.whosTurn==player1?player2:player1;
+    }
+    return winner;
+}
+
+
 
 // 'public' methods
 module.exports = {
+
+
     createGame(player1, player2, difficulty) {
-        let message = "";
+        let message = undefined;
         loadData();
         let allowGame = true;
-        gameData.forEach((game) => {
-            if (game.player1 == player1 || game.player2 == player1) {
-                message = `${player1} already has an active game. finish or cancel the game to make a new one\n`;
-                allowGame = false;
-            }
-            if (player2 != null && (game.player1 == player2 || game.player2 == player2)) {
-                message += `${player2} already has an active game. have them finish or cancel the game to make a new one`;
-                allowGame = false
-            }
-        })
+        if (findGameByPlayer(player1)) {
+            message = `${player1} already has an active game. finish or cancel the game to make a new one\n`;
+            allowGame = false;
+        }
+        if (player2 != config.botUsername && findGameByPlayer(player2)) {
+            console.log("player2 match");
+            message += `${player2} already has an active game. have them finish or cancel the game to make a new one`;
+            allowGame = false
+        }
         if (allowGame) {
             const gs = new GameState.gameState(player1, player2, difficulty)
             gameData.push(gs);
@@ -98,87 +94,61 @@ module.exports = {
         return message;
     },
 
-    // deleteGame(player1, player2) {
-    //     for(let i = 0; i < gameData.length; i++) {
-    //         let game = gameData[i];
-    //         if((player1.id == game.player1.id || player1.id == game.player2.id)
-    //             && (!player2 || player2.id == game.player2.id || player2.id == game.player1.id)
-    //         ) {
-    //             gameData.splice(i, 1);
-                
-    //             break;
-    //         }
-    //     }
+
     takePile(player, pile, pipes) {
-        let message = "";
-        console.log("inside takePile");
+        let message = undefined;
         let game = findGameByPlayer(player);
-        console.log(game);
-        if (game != 0) {
-            console.log("found the game");
+        if (game) {
             switch (pile) {
                 case 1:
-                    console.log("found the pile");
                     if (game.pile1pipes >= pipes) {
-                        console.log("subtracting the pipes");
                         game.pile1pipes -= pipes;
                     } else {
-                        message = "You can't take that many pipes from that pile.";
+                        return "You can't take that many pipes from that pile.";
                     }
                     break;
                 case 2:
                     if (game.pile2pipes >= pipes) {
                         game.pile2pipes -= pipes;
                     } else {
-                        message = "You can't take that many pipes from that pile.";
+                        return "You can't take that many pipes from that pile.";
                     }
                     break;
                 case 3:
                     if (game.pile3pipes != null && game.pile3pipes >= pipes) {
                         game.pile3pipes -= pipes;
                     } else {
-                        message = "You can't take that many pipes from that pile.";
+                        return "You can't take that many pipes from that pile.";
                     }
                     break;
                 case 4: 
                     if (game.pile4pipes != null && game.pile4pipes >= pipes) {
                         game.pile4pipes -= pipes;
                     } else {
-                        message = "You can't take that many pipes from that pile.";
+                        return "You can't take that many pipes from that pile.";
                     }
                     break;
                 default:
-                    message = `${player} that isn't a valid pile to take from`;
+                    return `${player} that isn't a valid pile to take from`;
             }
         } else {
-            message = `${player} you do not have a game in progress.`;
+            return `${player} you do not have a game in progress.`;
         }
-
-        console.log(message);
-
-        console.log("checking for winner");
         let winner = checkForWin(game);
-        console.log(winner);
-        if (winner != 0) {
-
+        if (winner) {
             message = `${winner} wins!`;
             this.endGame(player);
         }
-
-        saveGame();
+        updateData(game);
 
         return message;
     },
+
+
     endGame(player) {
-        let game = findGameByPlayer(player);
-        let message = '';
-        if (game != 0) {
-            let indexOfGame = gameData.findIndex(game);
-            if (indexOfGame != -1) {
-                gameData = gameData.splice(indexOfGame);
-            } else {
-                message = `${player} there was an error removing your game from the data file.`;
-            }
+        let message = undefined;
+        if (removeGameByPlayer(player)) {
+            message = "Game removed";
         } else {
             message = `${player} you do not have an active game.`;
         }
