@@ -1,18 +1,18 @@
 getRandom = (max) => {
     return Math.ceil(Math.random() * max);
 }
-const gc = require('.\\GameController.js');
+const gc = require('./GameController.js');
 module.exports = {
     takeTurn(game){
         if(game.difficulty == 1){
             var randomRow = getRandom(2);
             if(randomRow == 1 && game.pile1pipes > 0 || 
                 game.pile2pipes == 0 && game.pile1pipes > 0){
-                game.pile1pipes -= getRandom(game.pile1pipes);
+                game.pile1pipes -= getRandom(game.pile1pipes - 1);
             }
             else if(randomRow == 2 && game.pile2pipes > 0 ||
                 game.pile1pipes == 0 && game.pile2pipes > 0){
-                game.pile2pipes -= getRandom(game.pile2pipes);
+                game.pile2pipes -= getRandom(game.pile2pipes - 1);
             }
         }
         else if(game.difficulty == 2){
@@ -20,17 +20,17 @@ module.exports = {
             if(randomRow == 1 && game.pile1pipes > 0 || 
                 game.pile2pipes == 0 && game.pile1pipes > 0 && 
                 game.pile3pipes == 0 && game.pile1pipes > 0){
-                game.pile1pipes =- getRandom(game.pile1pipes);
+                game.pile1pipes =- getRandom(game.pile1pipes - 1);
             }
             else if(randomRow == 2 && game.pile2pipes > 0 ||
                 game.pile1pipes == 0 && game.pile2pipes > 0 && 
                 game.pile3pipes == 0 && game.pile2pipes > 0){
-                game.pile2pipes =- getRandom(game.pile2pipes);
+                game.pile2pipes =- getRandom(game.pile2pipes - 1);
             }
             else if(randomRow == 3 && game.pile3pipes > 0 ||
                 (game.pile1pipes == 0 && game.pile3pipes > 0 &&
                 game.pile2pipes == 0 && game.pile3pipes > 0)){
-                game.pile3pipes =- getRandom(game.pile3pipes);
+                game.pile3pipes =- getRandom(game.pile3pipes - 1);
             }
             
         }
@@ -41,34 +41,31 @@ module.exports = {
                 game.pile2pipes == 0 && game.pile1pipes > 0 &&
                 game.pile3pipes == 0 && game.pile1pipes > 0)){
 
-                game.pile1pipes =- getRandom(game.pile1pipes);
+                game.pile1pipes =- getRandom(game.pile1pipes - 1);
             }
             else if(randomRow == 2 && game.game.pile2pipes > 0 ||
                 (game.pile1pipes == 0 && game.pile2pipes > 0 &&
                 game.pile4pipes == 0 && game.pile2pipes > 0 &&
                 game.pile3pipes == 0 && game.pile2pipes > 0)){
 
-                game.pile2pipes =- getRandom(game.pile2pipes);
+                game.pile2pipes =- getRandom(game.pile2pipes - 1);
             }
             else if(randomRow == 3 && game.pile2pipes > 0 ||
                 (game.pile1pipes == 0 && game.pile3pipes > 0 &&
                     game.pile2pipes == 0 && game.pile3pipes > 0 &&
                     game.pile4pipes == 0 && game.pile3pipes > 0)){
 
-                game.pile3pipes =- getRandom(game.pile3pipes);
+                game.pile3pipes =- getRandom(game.pile3pipes - 1);
             }
             else if(randomRow == 4 && game.pile4pipes > 0 ||
                 (game.pile1pipes == 0 && game.pile4pipes > 0 &&
                 game.pile2pipes == 0 && game.pile4pipes > 0 &&
                 game.pile3pipes == 0 && game.pile4pipes > 0)) {
 
-                game.pile4pipes =- getRandom(game.pile4pipes);
+                game.pile4pipes =- getRandom(game.pile4pipes - 1);
             }
         }
-
-
-
-
+    
         //here we would do something that ould make a new game state but remove the 'amount of sticks from the selected row.
         //but before we do that we also need to check how many sticks there are in the row to accoun for bad and incorrect input
         //after we make a new gamestate we just need the AI (computer) to remove some sticks and make a new game state
