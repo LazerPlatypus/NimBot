@@ -7,11 +7,23 @@ module.exports = {
             var randomRow = getRandom(2);
             if(randomRow == 1 && game.pile1pipes > 0 || 
                 game.pile2pipes == 0 && game.pile1pipes > 0){
-                game.pile1pipes -= getRandom(game.pile1pipes - 1);
+                    if(game.pile1pipes > 1){
+                        mod = 1
+                    }
+                    else{
+                        mod = 0
+                    }
+                game.pile1pipes -= getRandom(game.pile1pipes - mod);
             }
             else if(randomRow == 2 && game.pile2pipes > 0 ||
                 game.pile1pipes == 0 && game.pile2pipes > 0){
-                game.pile2pipes -= getRandom(game.pile2pipes - 1);
+                    if(game.pile2pipes > 1){
+                        mod = 1
+                    }
+                    else{
+                        mod = 0
+                    }
+                game.pile2pipes -= getRandom(game.pile2pipes - mod);
             }
         }
         else if(game.difficulty == 2){
@@ -19,17 +31,35 @@ module.exports = {
             if(randomRow == 1 && game.pile1pipes > 0 || 
                 game.pile2pipes == 0 && game.pile1pipes > 0 && 
                 game.pile3pipes == 0 && game.pile1pipes > 0){
-                game.pile1pipes =- getRandom(game.pile1pipes - 1);
+                    if(game.pile1pipes > 1){
+                        mod = 1
+                    }
+                    else{
+                        mod = 0
+                    }
+                game.pile1pipes =- getRandom(game.pile1pipes - mod);
             }
             else if(randomRow == 2 && game.pile2pipes > 0 ||
                 game.pile1pipes == 0 && game.pile2pipes > 0 && 
                 game.pile3pipes == 0 && game.pile2pipes > 0){
-                game.pile2pipes =- getRandom(game.pile2pipes - 1);
+                    if(game.pile2pipes > 1){
+                        mod = 1
+                    }
+                    else{
+                        mod = 0
+                    }
+                game.pile2pipes =- getRandom(game.pile2pipes - mod);
             }
             else if(randomRow == 3 && game.pile3pipes > 0 ||
                 (game.pile1pipes == 0 && game.pile3pipes > 0 &&
                 game.pile2pipes == 0 && game.pile3pipes > 0)){
-                game.pile3pipes =- getRandom(game.pile3pipes - 1);
+                    if(game.pile3pipes > 1){
+                        mod = 1
+                    }
+                    else{
+                        mod = 0
+                    }
+                game.pile3pipes =- getRandom(game.pile3pipes - mod);
             }
             
         }
@@ -39,29 +69,49 @@ module.exports = {
                 (game.pile4pipes == 0 && game.pile1pipes > 0 &&
                 game.pile2pipes == 0 && game.pile1pipes > 0 &&
                 game.pile3pipes == 0 && game.pile1pipes > 0)){
-
-                game.pile1pipes =- getRandom(game.pile1pipes - 1);
+                    if(game.pile1pipes > 1){
+                        mod = 1
+                    }
+                    else{
+                        mod = 0
+                    }
+                game.pile1pipes =- getRandom(game.pile1pipes - mod);
             }
             else if(randomRow == 2 && game.game.pile2pipes > 0 ||
                 (game.pile1pipes == 0 && game.pile2pipes > 0 &&
                 game.pile4pipes == 0 && game.pile2pipes > 0 &&
                 game.pile3pipes == 0 && game.pile2pipes > 0)){
-
-                game.pile2pipes =- getRandom(game.pile2pipes - 1);
+                    if(game.pile2pipes > 1){
+                        mod = 1
+                    }
+                    else{
+                        mod = 0
+                    }
+                game.pile2pipes =- getRandom(game.pile2pipes - mod);
             }
             else if(randomRow == 3 && game.pile2pipes > 0 ||
                 (game.pile1pipes == 0 && game.pile3pipes > 0 &&
                     game.pile2pipes == 0 && game.pile3pipes > 0 &&
                     game.pile4pipes == 0 && game.pile3pipes > 0)){
-
-                game.pile3pipes =- getRandom(game.pile3pipes - 1);
+                        if(game.pile3pipes > 1){
+                            mod = 1
+                        }
+                        else{
+                            mod = 0
+                        }
+                game.pile3pipes =- getRandom(game.pile3pipes - mod);
             }
             else if(randomRow == 4 && game.pile4pipes > 0 ||
                 (game.pile1pipes == 0 && game.pile4pipes > 0 &&
                 game.pile2pipes == 0 && game.pile4pipes > 0 &&
                 game.pile3pipes == 0 && game.pile4pipes > 0)) {
-
-                game.pile4pipes =- getRandom(game.pile4pipes - 1);
+                    if(game.pile4pipes > 1){
+                        mod = 1
+                    }
+                    else{
+                        mod = 0
+                    }
+                game.pile4pipes =- getRandom(game.pile4pipes - mod);
             }
         }
 
