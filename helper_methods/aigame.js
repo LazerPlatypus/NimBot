@@ -25,8 +25,8 @@ module.exports = {
                 game.pile2pipes =- takeAmount;
             }
             else if(randomRow == 3 && game.pile3pipes > 0 ||
-                game.pile1pipes == 0 && game.pile3pipes > 0 &&
-                game.pile2pipes == 0 && game.pile3pipes > 0){
+                (game.pile1pipes == 0 && game.pile3pipes > 0 &&
+                game.pile2pipes == 0 && game.pile3pipes > 0)){
                 var takeAmount = Math.floor(Math.random(game.pile3pipes) * 10);
                 game.pile3pipes =- takeAmount;
             }
@@ -38,24 +38,24 @@ module.exports = {
                 var takeAmount = Math.floor(Math.random(game.pile1pipes) * 10);
                 game.pile1pipes =- takeAmount;
             }
-            else if(randomRow == 2 && game.amountofsticksinrow2 > 0 ||
-                /*CHECK if the amount of sticks in the previous row is emtpy*/ amountofsticksinrow1 == 0 && game.amountofsticksinrow2 > 0){
-                var takeAmount = Math.floor(Math.random(/*amount of sticks left*/) * 10)
-                /*Then you would take the sticks from row 2 here*/
+            else if(randomRow == 2 && game.game.pile2pipes > 0 ||
+                game.pile1pipes == 0 && game.pile2pipes > 0){
+                var takeAmount = Math.floor(Math.random(game.pile2pipes) * 10);
+                game.pile2pipes =- takeAmount;
             }
             else if(randomRow == 3 && game.amountofsticksinrow2 > 0 ||
-                /*CHECK if the amount of sticks in the previous row is emtpy*/ amountofsticksinrow1 == 0 && game.amountofsticksinrow2 > 0 ||
-                /*CHECK if the amount of sticks in the previous row is emtpy*/ amountofsticksinrow2 == 0 && game.amountofsticksinrow3 > 0){
-                var takeAmount = Math.floor(Math.random(/*amount of sticks left*/) * 10)
-                /*Then you would take the sticks from row 3 here*/
+                game.pile1pipes == 0 && game.pile2pipes > 0 ||
+                game.pile2pipes == 0 && game.pile3pipes > 0){
+                var takeAmount = Math.floor(Math.random(game.pile3pipes) * 10);
+                game.pile3pipes =- takeAmount;
             }
-            else if(randomRow == 3 && game.amountofsticksinrow3 > 0 ||
-                game.amountofsticksinrow2 == 0 && game.amountofsticksinrow2 > 0 ||
-                game.amountofsticksinrow3 == 0 && game.amountofsticksinrow3 > 0 ||
-                game.amountofsticksinrow4 == 0 && game.amountofsticksinrow4 > 0){
+            else if(randomRow == 4 && game.pile4pipes > 0 ||
+                (game.pile1pipes == 0 && game.pile4pipes > 0 &&
+                game.pile2pipes == 0 && game.pile4pipes > 0 &&
+                game.pile3pipes == 0 && game.pile4pipes > 0)){
 {
-                var takeAmount = Math.floor(Math.random(/*amount of sticks left*/) * 10)
-                /*Then you would take the sticks from row 3 here*/
+                var takeAmount = Math.floor(Math.random(game.pile4pipes) * 10);
+                game.pile4pipes =- takeAmount;
             }
         }
 
