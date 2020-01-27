@@ -21,6 +21,7 @@ commandFiles.forEach(file => {
 // bot ready / one time run code
 client.once('ready', () => {
     console.log('Ready');
+    
 });
 
 // command handling (Yes, that's spelled right)

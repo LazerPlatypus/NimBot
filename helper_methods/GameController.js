@@ -27,7 +27,7 @@ updateData = (game) => {
 
 findGameByPlayer = (player) => {
     loadData();
-    let playerGame = null;
+    let playerGame = undefined;
     gameData.forEach((game) => {
         if (game.player1 == player || game.player2 == player) {
             playerGame = game;
@@ -54,7 +54,7 @@ removeGameByPlayer = (player) => {
 // the player whos turn it currently is, wins
 // (we check for win at the end of a turn, before shifting players)
 checkForWin = (game) => {
-    let winner = null;
+    let winner = undefined;
     let sumOfPipes = game.pile1pipes 
                     + game.pile2pipes
                     + game.pile3pipes
@@ -153,6 +153,24 @@ module.exports = {
             message = `${player} you do not have an active game.`;
         }
         return message;
+    },
+
+
+    getGameBoard(player) {
+        let gameBoard = undefined;
+        let game = findGameByPlayer(player);
+        if (game) {
+            gameBoard = {
+                player1: game.player1,
+                player2: game.player2,
+                row1pipes: game.pile1pipes,
+                row2pipes: game.pile2pipes,
+                row3pipes: game.pile3pipes,
+                row4pipes: game.pile4pipes,
+                whosTurn: game.whosTurn
+            };
+        }
+        return gameBoard;
     }
 };
 

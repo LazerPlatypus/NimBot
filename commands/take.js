@@ -9,13 +9,11 @@ module.exports = {
     cooldown: true,
     cooldowntime: 2,
     execute(message, args) {
-        console.log("entered take.js");
-        let error = '';
+        let error = undefined;
         try {
             let pile = parseInt(args[0]);
             try {
-                let pipes = parseInt(args[0]);
-                console.log("pile and pipes are good. entering takePile")
+                let pipes = parseInt(args[1]);
                 error = gameController.takePile(message.author.username, pile, pipes);
             } catch (error) {
                 error = 'that is not a valid number for pipes';
@@ -23,7 +21,7 @@ module.exports = {
         } catch (error) {
             error = 'that is not a valid numer for a pile';
         }
-        if (error != "") {
+        if (error) {
             message.reply(error);
         }
     }
