@@ -33,7 +33,7 @@ module.exports = {
         if (response) {
             message.reply(response);
         } else {
-            message.replay("you don't have an active game");
+            message.reply("you don't have an active game");
         }
     }
 };
