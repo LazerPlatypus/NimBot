@@ -60,10 +60,11 @@ checkForWin = (game) => {
                     + game.pile2pipes
                     + game.pile3pipes
                     + game.pile4pipes;
+    console.log(sumOfPipes);
     if (sumOfPipes == 1) {
-        winner = game.whosTurn;
+        winner = game.whosTurn==game.player1?game.player2:game.player1;
     } else if (sumOfPipes == 0) {
-        winner = game.whosTurn==player1?player2:player1;
+        winner = game.whosTurn;
     }
     return winner;
 }
@@ -105,6 +106,7 @@ module.exports = {
                     case 1:
                         if (game.pile1pipes >= pipes) {
                             game.pile1pipes -= pipes;
+                            console.log(game.pile1pipes);
                         } else {
                             return "You can't take that many pipes from that pile.";
                         }
@@ -142,11 +144,12 @@ module.exports = {
             return `${player} you do not have a game in progress.`;
         }
 
+        console.log(game);
 
         let winner = checkForWin(game);
         if (winner) {
             message = `${winner} wins!`;
-            endGame();
+            this.endGame(player);
         } else {
             updateData(game);
             if(game.player2 == config.botUsername) {
