@@ -6,7 +6,8 @@ module.exports = {
     takeTurn(game){
         if(game.difficulty == 1){
             var randomRow = getRandom(2);
-            if(randomRow == 1 && game.pile1pipes > 0){
+            if(randomRow == 1 && game.pile1pipes > 0 || 
+                game.pile2pipes == 0 && game.pile1pipes > 0){
                 game.pile1pipes -= getRandom(game.pile1pipes);
             }
             else if(randomRow == 2 && game.pile2pipes > 0 ||
@@ -16,11 +17,14 @@ module.exports = {
         }
         else if(game.difficulty == 2){
             var randomRow = getRandom(3);
-            if(randomRow == 1 && game.pile1pipes > 0){
+            if(randomRow == 1 && game.pile1pipes > 0 || 
+                game.pile2pipes == 0 && game.pile1pipes > 0 && 
+                game.pile3pipes == 0 && game.pile1pipes > 0){
                 game.pile1pipes =- getRandom(game.pile1pipes);
             }
             else if(randomRow == 2 && game.pile2pipes > 0 ||
-                game.pile1pipes == 0 && game.pile2pipes > 0){
+                game.pile1pipes == 0 && game.pile2pipes > 0 && 
+                game.pile3pipes == 0 && game.pile2pipes > 0){
                 game.pile2pipes =- getRandom(game.pile2pipes);
             }
             else if(randomRow == 3 && game.pile3pipes > 0 ||
@@ -32,18 +36,24 @@ module.exports = {
         }
         else if(game.difficulty == 3){
             var randomRow = getRandom(4);
-            if(randomRow == 1 && game.pile1pipes > 0){
+            if(randomRow == 1 && game.pile1pipes > 0 || 
+                (game.pile4pipes == 0 && game.pile1pipes > 0 &&
+                game.pile2pipes == 0 && game.pile1pipes > 0 &&
+                game.pile3pipes == 0 && game.pile1pipes > 0)){
 
                 game.pile1pipes =- getRandom(game.pile1pipes);
             }
             else if(randomRow == 2 && game.game.pile2pipes > 0 ||
-                game.pile1pipes == 0 && game.pile2pipes > 0){
+                (game.pile1pipes == 0 && game.pile2pipes > 0 &&
+                game.pile4pipes == 0 && game.pile2pipes > 0 &&
+                game.pile3pipes == 0 && game.pile2pipes > 0)){
 
                 game.pile2pipes =- getRandom(game.pile2pipes);
             }
             else if(randomRow == 3 && game.pile2pipes > 0 ||
-                game.pile1pipes == 0 && game.pile2pipes > 0 ||
-                game.pile2pipes == 0 && game.pile3pipes > 0){
+                (game.pile1pipes == 0 && game.pile3pipes > 0 &&
+                    game.pile2pipes == 0 && game.pile3pipes > 0 &&
+                    game.pile4pipes == 0 && game.pile3pipes > 0)){
 
                 game.pile3pipes =- getRandom(game.pile3pipes);
             }
