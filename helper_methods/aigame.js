@@ -69,5 +69,6 @@ module.exports = {
         //FINALLY, we will display the game state to the screen in the discord text chat with a ping(or not) and then the player can take their turn again
         gamestate1 = st.gameState
     }
-};
+}
+}
 

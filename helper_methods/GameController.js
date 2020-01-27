@@ -148,7 +148,8 @@ module.exports = {
         }
         updateData(game);
         if(game.player2 == config.botUsername){
-            ai.takeTurn();
+            console.log("ai's turn");
+            ai.takeTurn(game);
         }
         return message;
     },
