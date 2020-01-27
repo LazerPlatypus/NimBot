@@ -1,3 +1,4 @@
+const gameController = require('../helper_methods/GameController.js');
 module.exports = {
     name: "take",
     description: "Take, or \"nim\", the specified number of pipes in the specified heap.",
@@ -8,10 +9,22 @@ module.exports = {
     cooldown: true,
     cooldowntime: 2,
     execute(message, args) {
-        // find users game
-            // call take
-                // display error if exists
-                // display success if exists
-        // error if not exists
+        console.log("entered take.js");
+        let error = '';
+        try {
+            let pile = parseInt(args[0]);
+            try {
+                let pipes = parseInt(args[0]);
+                console.log("pile and pipes are good. entering takePile")
+                error = gameController.takePile(message.author.username, pile, pipes);
+            } catch (error) {
+                error = 'that is not a valid number for pipes';
+            }
+        } catch (error) {
+            error = 'that is not a valid numer for a pile';
+        }
+        if (error != "") {
+            message.reply(error);
+        }
     }
 };

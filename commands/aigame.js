@@ -14,6 +14,7 @@ module.exports = {
         //after we make a new gamestate we just need the AI (computer) to remove some sticks and make a new game state
         //we can store game states in an array list in memory
         //FINALLY, we will display the game state to the screen in the discord text chat with a ping(or not) and then the player can take their turn again
+        gamestate1 = st.gameState
     }
 };
 
