@@ -34,12 +34,12 @@ saveData = () => {
 checkForWin = (gameState) => {
     console.log("checking for winner");
     let winner = 0;
-    let sumOfPipes = gameState.pile1pipes + gameState.pile2pipes + gameState.pile3pipes!=null?gameState.pile3pipes:0 + gameState.pile4pipes!=null?gameState.pile4pipes:0;
+    let sumOfPipes = gameState.pile1pipes + gameState.pile2pipes + gameState.pile3pipes != null ? gameState.pile3pipes : 0 + gameState.pile4pipes != null ? gameState.pile4pipes : 0;
     if (sumOfPipes == 1) {
         winner = gameState.whosTurn;
     }
     if (sumOfPipes == 0) {
-        winner = gameState.whosTurn==player1?player2:player1;
+        winner = gameState.whosTurn == player1 ? player2 : player1;
     }
     console.log(winner);
     return winner;
@@ -64,7 +64,7 @@ saveGame = (game) => {
     loadData();
     console.log(game);
     console.log(gameData);
-    for (let i = 0; i < gameData.length; i++ ) {
+    for (let i = 0; i < gameData.length; i++) {
         if (gameData[i].gameId == game.gameId) {
             console.log("found the game")
             gameData[i] = game;
@@ -105,7 +105,7 @@ module.exports = {
     //             && (!player2 || player2.id == game.player2.id || player2.id == game.player1.id)
     //         ) {
     //             gameData.splice(i, 1);
-                
+
     //             break;
     //         }
     //     }
@@ -116,39 +116,43 @@ module.exports = {
         console.log(game);
         if (game != 0) {
             console.log("found the game");
-            switch (pile) {
-                case 1:
-                    console.log("found the pile");
-                    if (game.pile1pipes >= pipes) {
-                        console.log("subtracting the pipes");
-                        game.pile1pipes -= pipes;
-                    } else {
-                        message = "You can't take that many pipes from that pile.";
-                    }
-                    break;
-                case 2:
-                    if (game.pile2pipes >= pipes) {
-                        game.pile2pipes -= pipes;
-                    } else {
-                        message = "You can't take that many pipes from that pile.";
-                    }
-                    break;
-                case 3:
-                    if (game.pile3pipes != null && game.pile3pipes >= pipes) {
-                        game.pile3pipes -= pipes;
-                    } else {
-                        message = "You can't take that many pipes from that pile.";
-                    }
-                    break;
-                case 4: 
-                    if (game.pile4pipes != null && game.pile4pipes >= pipes) {
-                        game.pile4pipes -= pipes;
-                    } else {
-                        message = "You can't take that many pipes from that pile.";
-                    }
-                    break;
-                default:
-                    message = `${player} that isn't a valid pile to take from`;
+            if (GameState.whosTurn == player) {
+                switch (pile) {
+                    case 1:
+                        console.log("found the pile");
+                        if (game.pile1pipes >= pipes) {
+                            console.log("subtracting the pipes");
+                            game.pile1pipes -= pipes;
+                        } else {
+                            message = "You can't take that many pipes from that pile.";
+                        }
+                        break;
+                    case 2:
+                        if (game.pile2pipes >= pipes) {
+                            game.pile2pipes -= pipes;
+                        } else {
+                            message = "You can't take that many pipes from that pile.";
+                        }
+                        break;
+                    case 3:
+                        if (game.pile3pipes != null && game.pile3pipes >= pipes) {
+                            game.pile3pipes -= pipes;
+                        } else {
+                            message = "You can't take that many pipes from that pile.";
+                        }
+                        break;
+                    case 4:
+                        if (game.pile4pipes != null && game.pile4pipes >= pipes) {
+                            game.pile4pipes -= pipes;
+                        } else {
+                            message = "You can't take that many pipes from that pile.";
+                        }
+                        break;
+                    default:
+                        message = `${player} that isn't a valid pile to take from`;
+                }
+            } else {
+                message = `${player} it is not your turn`
             }
         } else {
             message = `${player} you do not have a game in progress.`;
@@ -185,4 +189,3 @@ module.exports = {
         return message;
     }
 };
-

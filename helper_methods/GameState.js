@@ -2,18 +2,18 @@
 // medium - 2, 5, 7
 // hard - 2, 3, 8, 9
 
-class GameState  {
+class GameState {
     constructor(player1, player2, difficulty) {
         this.player1 = player1;
         this.player2 = player2;
         this.whosTurn = player1;
         this.difficulty = difficulty;
-        switch(difficulty) {
-            case 1: 
+        switch (difficulty) {
+            case 1:
                 this.pile1pipes = 3;
                 this.pile2pipes = 3;
                 break;
-            case 2: 
+            case 2:
                 this.pile1pipes = 2;
                 this.pile2pipes = 5;
                 this.pile3pipes = 7;
@@ -24,7 +24,7 @@ class GameState  {
                 this.pile3pipes = 8;
                 this.pile4pipes = 9;
                 break;
-            default: 
+            default:
                 this.pile1pipes = 3;
                 this.pile2pipes = 3;
         }
@@ -39,9 +39,12 @@ class GameState  {
     pile4pipes = null; // number of pipes in pile 4, or null if easy or medium
     gameOver = false; // true or false
     gameId = Math.random();
+    changeTurn() {
+        this.whosTurn = this.whosTurn == player1 ? player2 : player1;
+    }
 }
 module.exports = {
-  gameState: GameState
+    gameState: GameState
 
 
 };
