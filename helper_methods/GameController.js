@@ -1,6 +1,7 @@
 const fs = require('fs');
 const config = require('../config.json');
 const GameState = require('./GameState.js');
+const ai = require('./aigame.js');
 const fileLocation = './data/games.json';
 var gameData = new Array;
 
@@ -146,7 +147,9 @@ module.exports = {
             this.endGame(player);
         }
         updateData(game);
-
+        if(game.player2 == config.botUsername){
+            ai.takeTurn();
+        }
         return message;
     },
 
