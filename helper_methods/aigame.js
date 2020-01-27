@@ -1,7 +1,6 @@
 getRandom = (max) => {
     return Math.ceil(Math.random() * max);
 }
-const gc = require('./GameController.js');
 module.exports = {
     takeTurn(game){
         if(game.difficulty == 1){
@@ -115,13 +114,16 @@ module.exports = {
                 game.pile4pipes =- getRandom(game.pile4pipes - mod);
             }
         }
-    
+
+        game.whosTurn = game.player1;
+
+
         //here we would do something that ould make a new game state but remove the 'amount of sticks from the selected row.
         //but before we do that we also need to check how many sticks there are in the row to accoun for bad and incorrect input
         //after we make a new gamestate we just need the AI (computer) to remove some sticks and make a new game state
         //we can store game states in an array list in memory
         //FINALLY, we will display the game state to the screen in the discord text chat with a ping(or not) and then the player can take their turn again
-        gc.updateData(game);
+        return game;
     }
 }
 

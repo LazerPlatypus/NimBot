@@ -141,15 +141,23 @@ module.exports = {
         } else {
             return `${player} you do not have a game in progress.`;
         }
+
+
         let winner = checkForWin(game);
         if (winner) {
             message = `${winner} wins!`;
-            this.endGame(player);
-        }
-        updateData(game);
-        if(game.player2 == config.botUsername){
-            console.log("ai's turn");
-            ai.takeTurn(game);
+            endGame();
+        } else {
+            updateData(game);
+            if(game.player2 == config.botUsername) {
+                game = ai.takeTurn(game);
+                winner = checkForWin(game);
+                if (winner) {
+                    message = `${winner} wins!`;
+                    this.endGame(player);
+                }
+                updateData(game);
+            }
         }
         return message;
     },
